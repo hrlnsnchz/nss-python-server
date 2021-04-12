@@ -17,11 +17,6 @@ CUSTOMERS = [
       "name": "Shonda Mousey",
       "address": "1000 Infinity Way",
       "animalId": 2
-    },
-    {
-      "email": "doodles11@poodle.com",
-      "name": "doodles poodle",
-      "id": 4
     }
   ]
 
