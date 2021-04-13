@@ -1,8 +1,8 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from animals import get_all_animals, get_single_animal, create_animal, delete_animal,update_animal
-from locations import get_all_locations, get_single_location
-from employees import get_all_employees, get_single_employee
-from customers import get_all_customers, get_single_customer
+from locations import get_all_locations, get_single_location, create_location, delete_location, update_location
+from employees import get_all_employees, get_single_employee, create_employee, delete_employee, update_employee
+from customers import get_all_customers, get_single_customer, create_customer, delete_customer, update_customer
 import json
 
 # Here's a class. It inherits from another class.
@@ -101,12 +101,24 @@ class HandleRequests(BaseHTTPRequestHandler):
 
         # Initialize new animal
         new_animal = None
+        new_customer = None
+        new_employee = None
+        new_location = None
 
         # Add a new animal to the list. Don't worry about
         # the orange squiggle, you'll define the create_animal
         # function next.
         if resource == "animals":
             new_animal = create_animal(post_body)
+
+        if resource == "customer":
+            new_customer = create_customer(post_body)
+
+        if resource == "employee":
+            new_employee = create_employee(post_body)
+
+        if resource == "location":
+            new_location = create_location(post_body)
 
         # Encode the new animal and send in response
         self.wfile.write(f"{new_animal}".encode())
@@ -131,6 +143,15 @@ class HandleRequests(BaseHTTPRequestHandler):
         if resource == "animals":
             update_animal(id, post_body)
 
+        if resource == "customers":
+            update_customer(id, post_body)
+
+        if resource == "employees":
+            update_employee(id, post_body)
+        
+        if resource == "locations":
+            update_location(id, post_body)
+
         # Encode the new animal and send in response
         self.wfile.write("".encode())
 
@@ -144,6 +165,15 @@ class HandleRequests(BaseHTTPRequestHandler):
         # Delete a single animal from the list
         if resource == "animals":
             delete_animal(id)
+
+        if resource == "customers":
+            delete_customer(id)
+
+        if resource == "employees":
+            delete_employee(id)
+
+        if resource == "locations":
+            delete_location(id)
 
         # Encode the new animal and send in response
         self.wfile.write("".encode())
