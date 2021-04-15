@@ -126,8 +126,6 @@ class HandleRequests(BaseHTTPRequestHandler):
 
     # Here's a method on the class that overrides the parent's method.
     # It handles any PUT request.
-    def do_PUT(self):
-        self.do_POST()
 
 
     def do_PUT(self):
