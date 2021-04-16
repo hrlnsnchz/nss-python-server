@@ -66,14 +66,13 @@ SELECT
     a.location_id,
     a.customer_id
 FROM animal a
-WHERE a.id = 3
+WHERE a.id = 3;
 
 SELECT
     c.id,
     c.name,
-    c.breed,
-    c.status,
-    c.location_id,
-    c.customer_id
+    c.address,
+    c.email,
+    c.password
 FROM customer c
-WHERE c.id = 3
+WHERE c.id = 3;
