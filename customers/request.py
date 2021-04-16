@@ -47,7 +47,7 @@ CUSTOMERS = [
 
 def create_customer(customer):
     # Get the id value of the last animal in the list
-    max_id = CUSTOMER[-1]["id"]
+    max_id = CUSTOMERS[-1]["id"]
 
     # Add 1 to whatever that number is
     new_id = max_id + 1
@@ -99,8 +99,8 @@ def get_all_customers():
             c.id,
             c.name,
             c.address,
-            c.animal_id,
             c.email,
+            c.password
         FROM customer c
         """)
 
@@ -117,8 +117,7 @@ def get_all_customers():
             # Note that the database fields are specified in
             # exact order of the parameters defined in the
             # customer class above.
-            customer = Customer(row['id'], row['name'], row['address'],
-                            row['animal_id'], row['email'])
+            customer = Customer(row['id'], row['name'], row['address'], row['email'], row['password'])
 
             customers.append(customer.__dict__)
 
@@ -137,8 +136,8 @@ def get_single_customer(id):
             c.id,
             c.name,
             c.address,
-            c.animal_id,
             c.email,
+            c.password
         FROM customer c
         WHERE c.id = ?
         """, ( id, ))
@@ -150,6 +149,6 @@ def get_single_customer(id):
 
         # Create an customer instance from the current row
         customer = Customer(data['id'], data['name'], data['address'],
-                            data['animal_id'], data['email'])
+                            data['email'], data['password'])
 
         return json.dumps(customer.__dict__)
