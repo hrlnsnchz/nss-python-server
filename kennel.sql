@@ -78,3 +78,20 @@ FROM customer c
 WHERE c.id = 3;
 
 INSERT INTO `Animal` VALUES (null, "Daps", "Kennel", "Boxer", 2, 2);
+
+SELECT
+    a.id,
+    a.name,
+    a.breed,
+    a.status,
+    a.location_id,
+    a.customer_id,
+    l.name location_name,
+    l.address location_address,
+    c.name AS customer_name,
+    c.address AS customer_address
+FROM Animal a
+JOIN Location l
+    ON l.id = a.location_id
+JOIN Customer c
+    ON c.id = a.customer_id;
