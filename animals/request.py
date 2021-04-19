@@ -1,6 +1,6 @@
 import sqlite3
 import json
-from models import Animal
+from models import Animal, Location
 
 ANIMALS = [
     {
@@ -141,9 +141,13 @@ def get_all_animals():
             a.breed,
             a.status,
             a.location_id,
-            a.customer_id
-        FROM animal a
-        """)
+            a.customer_id,
+            l.name location_name,
+            l.address location_address
+        FROM Animal a
+        JOIN Location l
+            ON l.id = a.location_id
+            """)
 
         # Initialize an empty list to hold all animal representations
         animals = []
@@ -154,18 +158,27 @@ def get_all_animals():
         # Iterate list of data returned from database
         for row in dataset:
 
-            # Create an animal instance from the current row.
-            # Note that the database fields are specified in
-            # exact order of the parameters defined in the
-            # Animal class above.
-            animal = Animal(row['id'], row['name'], row['breed'],
-                            row['status'], row['location_id'],
+            # Create an animal instance from the current row
+            animal = Animal(row['id'], 
+                            row['name'], 
+                            row['breed'], 
+                            row['status'],
+                            row['location_id'], 
                             row['customer_id'])
 
+            # Create a Location instance from the current row
+            location = Location(row['location_id'], #Doesn't seem to run without its 3 positional arguments but this returns only 1 animal
+                                row['location_name'], 
+                                row['location_address'])
+
+            # Add the dictionary representation of the location to the animal
+            animal.location = location.__dict__
+
+            # Add the dictionary representation of the animal to the list
             animals.append(animal.__dict__)
 
-    # Use `json` package to properly serialize list as JSON
-    return json.dumps(animals)
+            # Use `json` package to properly serialize list as JSON
+            return json.dumps(animals)
 
 def get_single_animal(id):
     with sqlite3.connect("./kennel.db") as conn:
