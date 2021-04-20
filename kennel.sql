@@ -89,9 +89,16 @@ SELECT
     l.name location_name,
     l.address location_address,
     c.name AS customer_name,
-    c.address AS customer_address
+    c.address AS customer_address,
+    c.email AS customer_email,
+    c.password AS customer_password
 FROM Animal a
 JOIN Location l
     ON l.id = a.location_id
 JOIN Customer c
     ON c.id = a.customer_id;
+
+SELECT * FROM Animal ORDER BY id DESC;
+
+
+            

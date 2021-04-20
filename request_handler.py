@@ -139,19 +139,18 @@ class HandleRequests(BaseHTTPRequestHandler):
             # Encode the new animal and send in response
             self.wfile.write(f"{new_animal}".encode())
 
-        if resource == "customer":
+        elif resource == "customer":
             new_customer = create_customer(post_body)
             self.wfile.write(f"{new_customer}".encode())
 
-        if resource == "employee":
+        elif resource == "employee":
             new_employee = create_employee(post_body)
             self.wfile.write(f"{new_employee}".encode())
 
-        if resource == "location":
+        elif resource == "location":
             new_location = create_location(post_body)
             self.wfile.write(f"{new_location}".encode())
 
-        # Encode the new animal and send in response
         
 
 
